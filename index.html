@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- A-Frame + AR.js NFT Tracking -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.1/dist/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/arjs@3.3.2/aframe/build/aframe-ar-nft.js"></script>
+
+  <style>
+    body { margin: 0; overflow: hidden; }
+  </style>
+
+</head>
+<body>
+
+<a-scene
+  embedded
+  vr-mode-ui="enabled: false"
+  renderer="logarithmicDepthBuffer: true;"
+  arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+>
+
+  <!-- VIDEO AS TEXTURE -->
+  <video id="arVideo"
+    src="assets/video.mp4"
+    autoplay
+    loop
+    muted
+    playsinline
+    webkit-playsinline
+    crossorigin="anonymous">
+  </video>
+
+  <!-- IMAGE TRACKING (POSTCARD) -->
+  <a-nft
+    type="nft"
+    url="assets/markers/postcard"
+    smooth="true"
+    smoothCount="10"
+    smoothTolerance="0.01"
+    smoothThreshold="5">
+    
+    <!-- VIDEO DISPLAYED ON TOP OF POSTCARD -->
+    <a-plane
+      width="1"
+      height="0.56"
+      position="0 0 0"
+      rotation="-90 0 0"
+      material="shader: flat; src: #arVideo">
+    </a-plane>
+
+  </a-nft>
+
+  <!-- CAMERA -->
+  <a-entity camera></a-entity>
+
+</a-scene>
+
+</body>
+</html>
